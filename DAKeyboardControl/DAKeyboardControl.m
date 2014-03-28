@@ -225,7 +225,7 @@ static char UIViewIsPanning;
     // If the active keyboard view could not be found (UITextViews...), try again
     if (!self.keyboardActiveView) {
         // Find the first responder on subviews and look re-assign first responder to it
-        [self reAssignFirstResponder];
+//        [self reAssignFirstResponder];
     }
 }
 

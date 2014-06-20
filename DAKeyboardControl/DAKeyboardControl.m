@@ -461,13 +461,21 @@ static char UIViewIsPanning;
 // The default implementation of this method does nothing.
 - (void)didAddSubview:(UIView *)subview
 {
-    if ([subview isKindOfClass:[UITextView class]] || [subview isKindOfClass:[UITextField class]]) {
-        if (!subview.inputAccessoryView) {
+    if (!subview.inputAccessoryView) {
+        if ([subview isKindOfClass:[UITextField class]]) {
             UITextField *textField = (UITextField *)subview;
             if ([textField respondsToSelector:@selector(setInputAccessoryView:)]) {
                 UIView *nullView = [[UIView alloc] initWithFrame:CGRectZero];
                 nullView.backgroundColor = [UIColor clearColor];
                 textField.inputAccessoryView = nullView;
+            }
+        }
+        else if ([subview isKindOfClass:[UITextView class]]) {
+            UITextView *textView = (UITextView *)subview;
+            if ([textView respondsToSelector:@selector(setInputAccessoryView:)] && [textView respondsToSelector:@selector(editable)] && textView.editable) {
+                UIView *nullView = [[UIView alloc] initWithFrame:CGRectZero];
+                nullView.backgroundColor = [UIColor clearColor];
+                textView.inputAccessoryView = nullView;
             }
         }
     }
